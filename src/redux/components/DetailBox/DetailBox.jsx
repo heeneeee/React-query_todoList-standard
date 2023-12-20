@@ -20,24 +20,22 @@ function DetailBox() {
   // const params = useParams();
 
   const { isLoading, isError, data } = useQuery(QUERY_KEYS.TODOS, getTodos);
-
+  console.log("data", data);
   // 이 컴포넌트에서 아이템을 사용하기 위해, params로 전달받은 id를 이용-todo를 filtering
   // const filteredTodos = useSelector((state) => {
   //   return data.filter((item) => item.id === data.id);
   // });
 
-  const filteredTodos = () => {
-    data.filter((item) => {
-      item.id === data.id;
-    });
-  };
+  const filteredTodos = data.filter((item) => {
+    return item.id === data.id;
+  });
 
   // 화면이 최초 렌더링 되는 시점에 올바르지 않은 접근을 차단
   // 지금은 uuidv4()를 사용해서 새로고침할 때 마다 변경 -> DB 또는 Cookie 등 사용하면 해결
   useEffect(() => {
     if (filteredTodos.length <= 0 || filteredTodos.length > 1) {
       alert("올바르지 않은 접근입니다. 메인페이지로 이동합니다.");
-      navigate("/");
+      // navigate("/");
     }
   }, []);
 
